@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 function Feature({ icon, title, text }) {
   return (
     <div className="feature">
-      <div className="feature-icon">{icon}</div>
+      <img className="feature-icon" src={icon} alt={title}/>
       <h3 className="feature-title">{title}</h3>
       <p className="feature-text">{text}</p>
     </div>
