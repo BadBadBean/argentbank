@@ -14,17 +14,17 @@
     text-align: left;
     margin: auto;
     box-sizing: content-box;
+  }
 
-    &__title {
-      font-weight: bold;
-      font-size: 1rem;
-      text-wrap: nowrap;
-    }
+  &__title {
+    font-weight: bold;
+    font-size: 1rem;
+    text-wrap: nowrap;
+  }
 
-    &__subtitle {
-      font-size: 0.9rem;
-      margin-top: 1.25rem;
-    }
+  &__subtitle {
+    font-size: 0.9rem;
+    margin-top: 1.25rem;
   }
 
   @media (min-width: 920px) {
@@ -37,14 +37,14 @@
       right: 50px;
       width: 300px;
       margin: 2rem;
+    }
 
-      &__title {
-        font-size: 1.5rem;
-      }
+    .hero__title {
+      font-size: 1.5rem;
+    }
 
-      &__subtitle {
-        font-size: 1.2rem;
-      }
+    .hero__subtitle {
+      font-size: 1.2rem;
     }
   }
 }
