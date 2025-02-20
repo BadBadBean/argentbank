@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes from "prop-types"
 
-function Feature({ icon, title, text }) {
+export default function Feature({ icon, title, text }) {
   return (
-    <div className="feature">
-      <div className="feature-icon">{icon}</div>
-      <h3 className="feature-title">{title}</h3>
-      <p className="feature-text">{text}</p>
+    <div className="features">
+      <img className="features__icon" src={icon} alt={title}/>
+      <h3 className="features__title">{title}</h3>
+      <p className="features__text">{text}</p>
     </div>
   );
 }
@@ -14,6 +14,4 @@ Feature.propTypes = {
   icon: PropTypes.element.isRequired,
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-};
-
-export default Feature;
+}
