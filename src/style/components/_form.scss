@@ -1,0 +1,27 @@
+.sign-in__title {
+  margin-block: 1.25rem;
+}
+
+.input__wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+  
+.input__wrapper label {
+  font-weight: bold;
+}
+  
+.input__wrapper input {
+  padding: 5px;
+  font-size: 1.2rem;
+}
+
+.input__remember {
+  display: flex;
+}
+
+.input__remember label {
+  margin-left: 0.5rem;
+}

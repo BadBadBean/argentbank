@@ -1,5 +1,9 @@
+import Form from "../components/Form"
+
 export default function SignIn() {
     return (
-        <div>Hello</div>
+        <main className="dark-bg">
+          <Form />
+        </main>
     )
   }

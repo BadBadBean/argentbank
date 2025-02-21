@@ -6,10 +6,10 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 export default function Header() {
   return (
     <header>
-      <h1>
-        <img className="logo" src={logo} alt="Argent Bank" />
-      </h1>
-      <NavLink to="/"><FontAwesomeIcon icon={faCircleUser}/>Sign In</NavLink>
+      <NavLink to="/">
+      <h1><img className="logo" src={logo} alt="Kasa" /></h1>
+      </NavLink>
+      <NavLink to="/sign-in"><FontAwesomeIcon icon={faCircleUser}/>Sign In</NavLink>
     </header>
   )
 }

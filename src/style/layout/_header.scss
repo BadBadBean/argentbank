@@ -22,6 +22,11 @@ header {
   .logo {
     display: flex;
     align-items: center;
+
+    img {
+      max-width: 100%;
+      width: 200px;
+    }
   }
 
   .fa-circle-user {

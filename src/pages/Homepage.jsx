@@ -21,7 +21,7 @@ export default function Homepage() {
           title={`No fees.\nNo minimum deposit.\nHigh interest rates.`}
           subtitle="Open a savings account with Argent Bank today!"
         />
-        <section className="features__container">
+        <section className="features">
         {featuresData.map((feature) => (
           <Feature
             key={feature.id}
