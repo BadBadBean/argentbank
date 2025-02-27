@@ -13,27 +13,27 @@ export default function Header() {
 
   const handleLogout = () => {
     dispatch(logout());
-    localStorage.removeItem("token")
     navigate("/");
+    localStorage.removeItem("token")
   };
 
   return (
     <header className="header">
-        <NavLink to="/" className="brand">
-          <img className="logo" src={logo} alt="Company Logo" />
+        <NavLink to="/">
+          <img className="logo" src={logo} alt="Argent Bank" />
         </NavLink>
-        <nav className="nav">
-          {token ? (
-            <div className="nav-items">
-              <span className="nav-item user-name">
+        <nav>
+          {token && user ? (
+            <div>
+              <span className="username">
                 <FontAwesomeIcon icon={faCircleUser} /> {user?.userName}
               </span>
-              <NavLink to="/" className="nav-item logout-link" onClick={handleLogout}>
+              <NavLink to="/" onClick={handleLogout}>
                 <FontAwesomeIcon icon={faRightFromBracket} /> Sign Out
               </NavLink>
             </div>
           ) : (
-            <NavLink to="/sign-in" className="nav-item">
+            <NavLink to="/sign-in">
               <FontAwesomeIcon icon={faCircleUser} /> Sign In
             </NavLink>
           )}

@@ -36,10 +36,21 @@ export default function User() {
     const newFirstName = event.target.firstName.value.trim();
     const newLastName = event.target.lastName.value.trim();
     const newUsername = event.target.username.value.trim();
-
+  
     if (newFirstName && newLastName && newUsername && token) {
       try {
-        await updateProfile({ firstName: newFirstName, lastName: newLastName, userName: newUsername, token }).unwrap();
+        // Mise à jour de l'utilisateur via API
+        const updatedUser = await updateProfile({
+          firstName: newFirstName,
+          lastName: newLastName,
+          userName: newUsername,
+          token,
+        }).unwrap();
+  
+        // Met à jour Redux avec les nouvelles infos utilisateur
+        dispatch(credentials({ token, user: updatedUser.body }));
+  
+        // Met à jour les valeurs locales
         setFirstName(newFirstName);
         setLastName(newLastName);
         setUsername(newUsername);
@@ -76,7 +87,7 @@ export default function User() {
         </section>
       ) : (
         <section className="user__header">
-          <h2 className="user__header__title">Welcome back, {firstName} {lastName}!</h2>
+          <h2 className="user__header__title">Welcome back,<br /> {firstName} {lastName}!</h2>
           <Button type="button" label="Edit Name" buttonClass="edit__button" onClick={handleEditClick} />
         </section>
       )}

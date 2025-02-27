@@ -3,9 +3,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3001/api/v1",
   prepareHeaders: (headers, { getState }) => {
-    const userInfo = getState().auth.userInfo; // Récupérer les infos utilisateur depuis Redux
-    if (userInfo?.token) {
-      headers.set("Authorization", `Bearer ${userInfo.token}`);
+    const token = getState().auth.token; // Récupérer directement le token
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
     }
     return headers;
   },
