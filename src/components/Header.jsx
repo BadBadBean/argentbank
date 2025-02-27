@@ -6,13 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
 
 export default function Header() {
-  const { userInfo } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem("token")
     navigate("/");
   };
 
@@ -22,10 +23,10 @@ export default function Header() {
           <img className="logo" src={logo} alt="Company Logo" />
         </NavLink>
         <nav className="nav">
-          {userInfo ? (
+          {token ? (
             <div className="nav-items">
               <span className="nav-item user-name">
-                <FontAwesomeIcon icon={faCircleUser} /> {userInfo.userName}
+                <FontAwesomeIcon icon={faCircleUser} /> {user?.userName}
               </span>
               <NavLink to="/" className="nav-item logout-link" onClick={handleLogout}>
                 <FontAwesomeIcon icon={faRightFromBracket} /> Sign Out
