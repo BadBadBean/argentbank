@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetProfileQuery, useUpdateProfileMutation } from "../features/user/userApiSlice";
+import { useSignupMutation, useUpdateProfileMutation } from "../features/user/userApiSlice";
 import { credentials } from "../features/auth/authSlice";
 import Account from "../components/Account";
 import Button from "../components/Button";
@@ -11,7 +11,7 @@ export default function User() {
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
 
-  const { data } = useGetProfileQuery();
+  const { data } = useSignupMutation();
   const [updateProfile] = useUpdateProfileMutation();
 
   const [isEditing, setIsEditing] = useState(false);

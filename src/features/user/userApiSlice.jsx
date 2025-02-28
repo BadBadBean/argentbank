@@ -46,6 +46,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
 export const {
   useLoginMutation,
   useSignupMutation,
-  useGetProfileQuery,  // ✅ Vérifie que cette ligne est bien présente
+  useGetProfileQuery,
   useUpdateProfileMutation,
 } = userApiSlice;

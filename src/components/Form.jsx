@@ -3,8 +3,8 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useLoginMutation, useGetProfileQuery } from "../features/user/userApiSlice";
-import { credentials } from "../features/auth/authSlice"; // ✅ Vérifie que cet import est bon
+import { useLoginMutation, useSignupMutation } from "../features/user/userApiSlice";
+import { credentials } from "../features/auth/authSlice";
 import Button from "./Button";
 
 export default function Form() {
@@ -15,7 +15,7 @@ export default function Form() {
   const navigate = useNavigate();
 
   const [login] = useLoginMutation();
-  const  { data: profile } = useGetProfileQuery()
+  const  { data: profile } = useSignupMutation()
 
   const { userInfo } = useSelector((state) => state.auth);
 
