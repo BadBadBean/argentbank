@@ -1,21 +1,21 @@
-  #root {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100vh;
-    text-align: center;
-    color: #2c3e50;
-  }
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  text-align: center;
+  color: #2c3e50;
+}
 
-  main {
-    flex: 1;
-  }
+main {
+  flex: 1;
+}
 
-  .dark-bg {
-    background-color: #12002b;
-  }
+.dark-bg {
+  background-color: #12002b;
+}
 
-  .sr-only {
+.sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
   -webkit-clip-path: inset(50%) !important;
@@ -27,4 +27,14 @@
   position: absolute !important;
   width: 1px !important;
   white-space: nowrap !important; /* 3 */
+}
+
+.error__message {
+  color: #2c3e50;
+  margin-block: 1.5rem;
+  font-weight: bolder;
+}
+
+.fa-triangle-exclamation {
+  margin-right: 0.5rem;
 }

@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import { useState} from "react";
+import {faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../features/user/userApiSlice";
 import { credentials } from "../features/auth/authSlice";
 import Button from "./Button";
@@ -10,23 +11,22 @@ import Button from "./Button";
 export default function Form() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [login] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
-      console.log("Réponse API Login :", res);
-  
-      localStorage.setItem("token", res.body.token); // Stocke le token
-      dispatch(credentials({ token: res.body.token })); // Stocke le token dans Redux
-  
-      navigate("/user"); // Redirige vers la page utilisateur
+      localStorage.setItem("token", res.body.token);
+      dispatch(credentials({ token: res.body.token }));
+      navigate("/user");
     } catch (err) {
-      console.log("Erreur lors de la connexion :", err?.data || err);
+      console.error("Erreur de connexion :", err);
+      setErrorMessage("Invalid email or password. Please check your credentials.");
     }
   };
 
@@ -36,11 +36,10 @@ export default function Form() {
       <h2 className="sign-in__title">Sign In</h2>
       <form onSubmit={submitHandler}>
         <div className="input__wrapper">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Username</label>
           <input
-            type="text"
-            id="username"
-            name="username"
+            type="email"
+            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -51,12 +50,12 @@ export default function Form() {
           <input
             type="password"
             id="password"
-            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
+        {errorMessage && <p className="error__message"><FontAwesomeIcon icon={faTriangleExclamation} />{errorMessage}</p>}
         <div className="input__remember">
           <input type="checkbox" id="remember" name="remember" />
           <label htmlFor="remember">Remember me</label>
