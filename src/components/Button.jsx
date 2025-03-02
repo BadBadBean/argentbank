@@ -13,5 +13,5 @@ Button.propTypes = {
     type: PropTypes.oneOf(["button", "submit", "reset"]),
     label: PropTypes.string.isRequired, 
     onClick: PropTypes.func,
-    buttonClass: PropTypes.oneOf([".edit__button", ".account__button"]),
+    buttonClass: PropTypes.oneOf(["edit__button", "account__button"]),
 }

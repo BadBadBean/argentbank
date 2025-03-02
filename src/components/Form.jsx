@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useLoginMutation, useSignupMutation } from "../features/user/userApiSlice";
+import { useDispatch} from "react-redux";
+import { useLoginMutation } from "../features/user/userApiSlice";
 import { credentials } from "../features/auth/authSlice";
 import Button from "./Button";
 
@@ -11,38 +11,20 @@ export default function Form() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [login] = useLoginMutation();
-  const  { data: profile } = useSignupMutation()
-
-  const { userInfo } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    if (userInfo) {
-      console.log("Redirection automatique car userInfo est défini");
-      navigate("/user");
-    }
-  }, [navigate, userInfo]);
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
       console.log("Réponse API Login :", res);
   
-      localStorage.setItem("token", res.body.token); // Stocker le token
+      localStorage.setItem("token", res.body.token); // Stocke le token
+      dispatch(credentials({ token: res.body.token })); // Stocke le token dans Redux
   
-      // Attendre que les données du profil soient mises à jour via useGetProfileQuery
-      if (profile) {
-        console.log("Profil récupéré :", profile);
-        dispatch(credentials({ token: res.body.token, userName: profile.body.userName }));
-        console.log("Redirection en cours...");
-        navigate("/user");
-      } else {
-        console.log("Erreur : le profil est introuvable.");
-      }
+      navigate("/user"); // Redirige vers la page utilisateur
     } catch (err) {
       console.log("Erreur lors de la connexion :", err?.data || err);
     }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSignupMutation, useUpdateProfileMutation } from "../features/user/userApiSlice";
+import { useGetProfileQuery, useUpdateProfileMutation } from "../features/user/userApiSlice";
 import { credentials } from "../features/auth/authSlice";
 import Account from "../components/Account";
 import Button from "../components/Button";
@@ -11,15 +11,24 @@ export default function User() {
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
 
-  const { data } = useSignupMutation();
+  console.log("État Redux User.jsx -> User :", user);
+  console.log("État Redux User.jsx -> Token :", token);
+
   const [updateProfile] = useUpdateProfileMutation();
+
+  const { data, refetch } = useGetProfileQuery(undefined, { skip: !token });
+
+useEffect(() => {
+  if (token) {
+    refetch();
+  }
+}, [token, refetch]);
 
   const [isEditing, setIsEditing] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
 
-  // Charger les infos utilisateur quand elles sont récupérées
   useEffect(() => {
     if (data?.body) {
       dispatch(credentials({ token, user: data.body }));
@@ -39,7 +48,6 @@ export default function User() {
   
     if (newFirstName && newLastName && newUsername && token) {
       try {
-        // Mise à jour de l'utilisateur via API
         const updatedUser = await updateProfile({
           firstName: newFirstName,
           lastName: newLastName,
@@ -47,10 +55,8 @@ export default function User() {
           token,
         }).unwrap();
   
-        // Met à jour Redux avec les nouvelles infos utilisateur
         dispatch(credentials({ token, user: updatedUser.body }));
   
-        // Met à jour les valeurs locales
         setFirstName(newFirstName);
         setLastName(newLastName);
         setUsername(newUsername);
@@ -87,7 +93,7 @@ export default function User() {
         </section>
       ) : (
         <section className="user__header">
-          <h2 className="user__header__title">Welcome back,<br /> {firstName} {lastName}!</h2>
+          <h2 className="user__header__title">Welcome back,<br /> {user?.firstName} {user?.lastName}!</h2>
           <Button type="button" label="Edit Name" buttonClass="edit__button" onClick={handleEditClick} />
         </section>
       )}
