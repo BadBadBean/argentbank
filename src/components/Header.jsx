@@ -18,8 +18,6 @@ export default function Header() {
     dispatch(logout());
     console.log("Déconnexion effectuée : Redux réinitialisé");
     navigate("/");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
   };
 
   return (
@@ -29,11 +27,11 @@ export default function Header() {
       </NavLink>
       <nav>
         {token && user ? (
-          <div>
-            <NavLink to="/user" className="username">
+          <div className="header_nav">
+            <NavLink to="/user" className="header__username">
               <FontAwesomeIcon icon={faCircleUser} /> {user?.userName}
             </NavLink>
-            <NavLink to="/" onClick={handleLogout}>
+            <NavLink to="/" className="header__connection" onClick={handleLogout}>
               <FontAwesomeIcon icon={faRightFromBracket} /> Sign Out
             </NavLink>
           </div>

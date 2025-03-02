@@ -22,14 +22,26 @@ header {
   .logo {
     display: flex;
     align-items: center;
-
-    img {
-      max-width: 100%;
-      width: 200px;
-    }
+    width: 100%;
   }
 
   .fa-circle-user {
     margin-right: 0.3rem;
   }
+}
+
+.header_nav {
+  @media (max-width: 410px) {
+    display: flex;
+    flex-direction: column;
+}
+}
+
+.heaser__username {
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.header__connection {
+  white-space: nowrap;
 }
