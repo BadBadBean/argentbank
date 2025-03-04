@@ -6,10 +6,10 @@
 @use "components/feature";
 @use "components/form";
 @use "components/hero";
+@use "components/loader";
 
 @use "layout/header";
 @use "layout/footer";
 
-@use "pages/homepage";
 @use "pages/signIn";
 @use "pages/user";

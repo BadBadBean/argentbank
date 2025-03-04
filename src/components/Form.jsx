@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import {faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { faCircleUser, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../features/user/userApiSlice";
@@ -9,21 +8,47 @@ import { credentials } from "../features/auth/authSlice";
 import Button from "./Button";
 
 export default function Form() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
+  const savedEmail = localStorage.getItem("rememberedEmail") || "";
+  const savedPassword = localStorage.getItem("rememberedPassword") || "";
+  const savedRememberMe = localStorage.getItem("rememberMe") === "true";
+
+  const [email, setEmail] = useState(savedEmail);
+  const [password, setPassword] = useState(savedPassword);
+  const [rememberMe, setRememberMe] = useState(savedRememberMe);
   const [errorMessage, setErrorMessage] = useState("");
 
   const [login] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log("Email récupéré :", email);
+    console.log("Mot de passe récupéré :", password);
+    console.log("Remember Me ?", rememberMe);
+  }, [email, password, rememberMe]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
-      localStorage.setItem("token", res.body.token);
-      dispatch(credentials({ token: res.body.token }));
+      console.log("Réponse API Login :", res);
+
+      sessionStorage.setItem("token", res.body.token);
+      sessionStorage.setItem("user", JSON.stringify(res.body));
+
+      dispatch(credentials({ token: res.body.token, user: res.body }));
       navigate("/user");
+
+      if (rememberMe) {
+        localStorage.setItem("rememberedEmail", email);
+        localStorage.setItem("rememberedPassword", password);
+        localStorage.setItem("rememberMe", "true");
+      } else {
+        localStorage.removeItem("rememberedEmail");
+        localStorage.removeItem("rememberedPassword");
+        localStorage.removeItem("rememberMe");
+      }
     } catch (err) {
       console.error("Erreur de connexion :", err);
       setErrorMessage("Invalid email or password. Please check your credentials.");
@@ -55,9 +80,15 @@ export default function Form() {
             required
           />
         </div>
-        {errorMessage && <p className="error__message"><FontAwesomeIcon icon={faTriangleExclamation} />{errorMessage}</p>}
+        {errorMessage && <p className="error__message"><FontAwesomeIcon icon={faTriangleExclamation} /> {errorMessage}</p>}
         <div className="input__remember">
-          <input type="checkbox" id="remember" name="remember" />
+          <input 
+            type="checkbox" 
+            id="remember" 
+            name="remember" 
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+          />
           <label htmlFor="remember">Remember me</label>
         </div>
         <Button type="submit" label="Sign In" />

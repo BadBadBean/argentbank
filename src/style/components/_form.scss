@@ -26,6 +26,16 @@
   margin-left: 0.5rem;
 }
 
+.error__message {
+  color: #2c3e50;
+  margin-block: 1.5rem;
+  font-weight: bolder;
+}
+
+.fa-triangle-exclamation {
+  margin-right: 0.5rem;
+}
+
 // Edit username form
 
 .user__edit__button {

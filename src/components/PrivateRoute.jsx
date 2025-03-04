@@ -5,8 +5,8 @@ export default function PrivateRoute() {
   const { token, isLoggedOut } = useSelector((state) => state.auth);
 
   if (isLoggedOut) {
-    return <Navigate to="/" />; 
+    return <Navigate to="/" replace />;
   }
 
-  return token ? <Outlet /> : <Navigate to="/sign-in" />;
+  return token ? <Outlet /> : <Navigate to="/sign-in" replace />;
 }
