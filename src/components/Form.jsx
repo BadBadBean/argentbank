@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../features/user/userApiSlice";
@@ -21,12 +21,6 @@ export default function Form() {
   const [login] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log("Email récupéré :", email);
-    console.log("Mot de passe récupéré :", password);
-    console.log("Remember Me ?", rememberMe);
-  }, [email, password, rememberMe]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
