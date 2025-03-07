@@ -1,6 +1,8 @@
-import Hero from "../components/Hero"
-import Feature from "../components/Feature"
-import backgroundImage from "../assets/images/bank-tree.webp"
+import Hero from "../components/Hero";
+import Feature from "../components/Feature";
+import backgroundImage from "../assets/images/bank-tree-1650w.webp";
+import backgroundImageMedium from "../assets/images/bank-tree-800w.webp";
+import backgroundImageSmall from "../assets/images/bank-tree-400w.webp";
 import featuresData from "../data/features.json"
 
 import chatIcon from "../assets/icons/icon-chat.png"
@@ -17,7 +19,8 @@ export default function Homepage() {
   return (
     <main>
         <Hero 
-          imageSrc={backgroundImage}
+          imageSrc={backgroundImage} 
+          imageSrcSet={`${backgroundImageSmall} 400w, ${backgroundImageMedium} 800w, ${backgroundImage} 1650w`}
           title={`No fees.\nNo minimum deposit.\nHigh interest rates.`}
           subtitle="Open a savings account with Argent Bank today!"
         />

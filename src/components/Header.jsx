@@ -16,7 +16,6 @@ export default function Header() {
 
   const handleLogout = () => {
     dispatch(logout());
-    console.log("Déconnexion effectuée : Redux réinitialisé");
     navigate("/");
   };
 
