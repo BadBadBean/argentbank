@@ -10,11 +10,10 @@ import Button from "./Button";
 export default function Form() {
   
   const savedEmail = localStorage.getItem("rememberedEmail") || "";
-  const savedPassword = localStorage.getItem("rememberedPassword") || "";
   const savedRememberMe = localStorage.getItem("rememberMe") === "true";
 
   const [email, setEmail] = useState(savedEmail);
-  const [password, setPassword] = useState(savedPassword);
+  const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(savedRememberMe);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -36,11 +35,9 @@ export default function Form() {
 
       if (rememberMe) {
         localStorage.setItem("rememberedEmail", email);
-        localStorage.setItem("rememberedPassword", password);
         localStorage.setItem("rememberMe", "true");
       } else {
         localStorage.removeItem("rememberedEmail");
-        localStorage.removeItem("rememberedPassword");
         localStorage.removeItem("rememberMe");
       }
     } catch (err) {
